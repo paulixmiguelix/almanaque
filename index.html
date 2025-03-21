@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Almanaque Borda d'Água</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Almanaque Borda d'Água – Fatos históricos, horóscopo, curiosidades e mais, atualizado diariamente.">
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background-color: #fdf6e3;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-size: 2.8em;
+      margin-bottom: 5px;
+    }
+    .date {
+      font-size: 1.2em;
+      color: #555;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    .section h2 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .content {
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Almanaque Borda d'Água</h1>
+    <div class="date" id="currentDate"></div>
+  </header>
+
+  <div class="section" id="historicalSection">
+    <h2>Fato Histórico do Dia</h2>
+    <div class="content" id="historicalFact"></div>
+  </div>
+
+  <div class="section" id="horoscopeSection">
+    <h2>Horóscopo do Dia</h2>
+    <div class="content" id="horoscope"></div>
+  </div>
+
+  <div class="section" id="curiositySection">
+    <h2>Curiosidade do Dia</h2>
+    <div class="content" id="curiosity"></div>
+  </div>
+
+  <footer>
+    <p>&copy; <span id="currentYear"></span> Almanaque Borda d'Água. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Função para formatar a data em português
+    function formatDate(date) {
+      const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+      const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+      const diaSemana = diasSemana[date.getDay()];
+      const dia = date.getDate();
+      const mes = meses[date.getMonth()];
+      const ano = date.getFullYear();
+      return diaSemana + ", " + dia + " de " + mes + " de " + ano;
+    }
+    
+    // Atualiza data e ano atuais
+    const now = new Date();
+    document.getElementById("currentDate").innerText = formatDate(now);
+    document.getElementById("currentYear").innerText = now.getFullYear();
+    
+    // Exemplo de conteúdos para o almanaque
+    
+    // Fatos históricos (exemplos fictícios, adaptáveis ao perfil do almanaque)
+    const historicalFacts = [
+      "Em 1580, os exércitos espanhóis adentraram Lisboa, marcando um momento decisivo na história de Portugal.",
+      "No dia de hoje, em 1755, o terrível terremoto de Lisboa abalou a cidade e iniciou um longo processo de reconstrução.",
+      "Em 1910, a República foi proclamada em Portugal, inaugurando uma nova era política e social.",
+      "Hoje, em 1968, o espírito revolucionário inspirava artistas e estudantes pelas ruas de Lisboa.",
+      "Neste dia, um notável navegante português partiu em uma expedição que abriria novos horizontes marítimos."
+    ];
+    // Seleciona um fato com base no dia do mês
+    const factIndex = now.getDate() % historicalFacts.length;
+    document.getElementById("historicalFact").innerText = historicalFacts[factIndex];
+    
+    // Horóscopos (exemplos genéricos)
+    const horoscopes = [
+      "A energia de hoje favorece a reflexão e a tomada de decisões importantes. Confie em sua intuição.",
+      "O dia promete boas oportunidades no trabalho e nos relacionamentos. Mantenha-se aberto às novidades.",
+      "Momentos de introspecção trarão clareza e renovação. Aproveite para reavaliar seus objetivos.",
+      "Sua criatividade estará em alta. É um bom dia para iniciar projetos e explorar novas ideias.",
+      "As estrelas indicam que a comunicação será essencial. Conecte-se com amigos e compartilhe suas experiências."
+    ];
+    // Seleciona um horóscopo com base no mês atual
+    const horoscopeIndex = now.getMonth() % horoscopes.length;
+    document.getElementById("horoscope").innerText = horoscopes[horoscopeIndex];
+    
+    // Curiosidades (exemplos típicos da cultura portuguesa)
+    const curiosities = [
+      "Sabia que o pastel de nata tem origem em Belém, e sua receita remonta ao século XIX?",
+      "Portugal é famoso pelos seus azulejos, que decoram desde igrejas até edifícios modernos.",
+      "O fado, declarado Patrimônio Imaterial da Humanidade, reflete a alma portuguesa em sua melancolia.",
+      "O vinho do Porto é produzido exclusivamente na região demarcada do Douro, uma tradição centenária.",
+      "A Ponte 25 de Abril, que lembra a Golden Gate, é um símbolo de engenharia e beleza em Lisboa."
+    ];
+    // Seleciona uma curiosidade baseada na soma do dia e mês
+    const curiosityIndex = (now.getDate() + now.getMonth()) % curiosities.length;
+    document.getElementById("curiosity").innerText = curiosities[curiosityIndex];
+  </script>
+</body>
+</html>

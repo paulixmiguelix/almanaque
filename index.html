@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Almanaque Agrícola – Borda d'Água</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Almanaque Agrícola Borda d'Água – Dicas, provérbios e informações agrícolas, lunares, curiosidades e fatos históricos, atualizados dinamicamente.">
+  <meta name="description" content="Almanaque Agrícola Borda d'Água – Dicas, provérbios, informações agrícolas, lunares, curiosidades e fatos históricos atualizados dinamicamente.">
   <style>
     /* Estilos Gerais */
     body {
@@ -98,7 +98,7 @@
       <div class="dynamic-info" id="dailyCuriosity"></div>
     </div>
     
-    <!-- Seção Fato Histórico do Dia (Dinâmico) -->
+    <!-- Seção Fato Histórico do Dia (Dinâmico, com verificação da data) -->
     <div class="section" id="historicalSection">
       <h2>Fato Histórico do Dia</h2>
       <div class="dynamic-info" id="historicalFact"></div>
@@ -129,170 +129,70 @@
     /* ===== Informação Agrícola (Fixa por Mês) ===== */
     const agricultureData = {
       "janeiro": {
-        description: "Preparação das culturas de Inverno com ênfase na plantação precoce: a lavoura é trabalhada com o intuito de preparar a terra para o plantio de culturas invernais e de transição para a primavera.",
+        description: "Preparação das culturas de Inverno com ênfase na plantação precoce: a lavoura é trabalhada para preparar o solo para culturas invernais e a transição para a primavera.",
         details: [
-          "Semear fava, ervilha, alface e rabanete em áreas disponíveis.",
+          "Semear fava, ervilha, alface e rabanete.",
           "No Norte e no Centro: semear couve-galega, nabo, nabiça, rabanete, salsa e tomate.",
           "No Sul: semear cenoura, couves, ervilha, feijão, nabiça e tomate.",
-          "Em estufa ou cama quente: plantar pepino, melão e pimento; semear canteiros de cenoura, alho, cebola, alface, ervilha, alho-francês e salsa.",
-          "Na horta: semear em canteiros ou alforges bem abrigados (defendidos das geadas) alface romana, couve-repolho e rabanete."
+          "Em estufa ou cama quente: plantar pepino, melão, pimento; semear canteiros de cenoura, alho, cebola, alface, ervilha, alho-francês e salsa.",
+          "Na horta: semear, em canteiros ou alforges abrigados contra geadas, alface romana, couve-repolho e rabanete."
         ]
       },
       "fevereiro": {
-        description: "Mês de transição: preparo do solo e manutenção da umidade para futuras plantações, com atenção especial às sementes que começam a germinar.",
+        description: "Mês de transição: preparo do solo e manutenção da umidade para futuras plantações. Atenção especial às sementes que começam a germinar.",
         details: [
-          "Rega frequente e controle das ervas daninhas.",
-          "Cuidado com culturas que já iniciam a germinação, como cenoura e beterraba.",
-          "No Sul, iniciar o preparo de estufas para sementes sensíveis."
+          "Regar frequentemente e controlar ervas daninhas.",
+          "Cuidar das hortaliças emergentes, como cenoura e beterraba.",
+          "Iniciar preparo de estufas para sementes sensíveis no Sul."
         ]
       },
       "março": {
-        description: "Início da primavera: aceleração do plantio e aproveitamento do clima ameno. Preparação intensiva dos canteiros para hortaliças de folha e leguminosas.",
+        description: "Início da primavera: aceleração do plantio e aproveitamento do clima ameno. Preparação intensiva de canteiros para hortaliças e leguminosas.",
         details: [
           "Semear ervilhas e grãos de bico.",
           "Preparar canteiros com adubação orgânica.",
-          "Monitorar o solo para correção de pH."
+          "Monitorar o pH do solo para ajustes necessários."
         ]
       },
       "abril": {
-        description: "Com o avanço da primavera, diversificar as culturas e intensificar a irrigação nas áreas recém-semeadas, preparando o terreno para o verão.",
+        description: "Avanço da primavera: diversificação das culturas e intensificação da irrigação nas áreas recém-semeadas, preparando o terreno para o verão.",
         details: [
           "Iniciar plantio de hortaliças de verão em áreas protegidas.",
           "Poda e adubação de árvores frutíferas.",
-          "Rotação de culturas para manter a fertilidade do solo."
+          "Implementar a rotação de culturas para manter a fertilidade do solo."
         ]
       },
       "maio": {
-        description: "Consolidação das plantações iniciadas e preparo para os cultivos de verão, com foco na manutenção da umidade e fortalecimento das plantas.",
+        description: "Consolidação das plantações e preparo para os cultivos de verão: manutenção da umidade e fortalecimento das plantas.",
         details: [
-          "Reforço na irrigação em áreas secas.",
+          "Reforçar a irrigação nas áreas mais secas.",
           "Semear culturas de rápido crescimento, como alface e rúcula.",
-          "Planejamento das hortas de verão no Norte."
+          "Planejar hortas de verão com diversidade no Norte."
         ]
       },
       "junho": {
-        description: "Chegada do verão: cuidados redobrados com irrigação e manejo sob forte incidência solar, garantindo o desenvolvimento adequado das culturas.",
+        description: "Chegada do verão: cuidados redobrados com a irrigação e manejo das plantas sob forte incidência solar.",
         details: [
-          "Uso de sistemas eficientes de irrigação.",
-          "Proteção das culturas sensíveis com sombras móveis.",
-          "Planejamento da colheita de produtos que amadurecem cedo."
+          "Utilizar sistemas de irrigação eficientes para evitar evaporação excessiva.",
+          "Proteger culturas sensíveis com sombras móveis.",
+          "Planejar a colheita antecipada de produtos que amadurecem rapidamente."
         ]
       },
       "julho": {
-        description: "Auge do verão: manutenção da cobertura do solo para conservar água e controle rigoroso das pragas e doenças.",
+        description: "Auge do verão: manutenção da cobertura do solo para conservar água e controle rigoroso de pragas e doenças.",
         details: [
-          "Técnicas de mulching para reduzir evaporação.",
-          "Ajuste na irrigação para evitar estresse hídrico.",
-          "Controle biológico de pragas sempre que possível."
+          "Adotar técnicas de mulching para reduzir a evaporação.",
+          "Ajustar a irrigação para evitar estresse hídrico.",
+          "Utilizar métodos naturais de controle de pragas."
         ]
       },
       "agosto": {
-        description: "Continuação do calor, com foco na proteção contra a desidratação e preparação para o outono, iniciando a colheita de algumas hortaliças.",
+        description: "No calor contínuo, proteger as culturas contra a desidratação e iniciar a preparação para o outono.",
         details: [
-          "Ajustar irrigação conforme necessidade.",
+          "Ajustar a irrigação conforme a necessidade específica de cada cultura.",
           "Iniciar a colheita de hortaliças e frutas maduras.",
           "Preparar o solo com matéria orgânica para a próxima estação."
         ]
       },
       "setembro": {
-        description: "Transição para o outono: temperaturas mais amenas favorecem a semeadura de culturas de ciclo curto e a rotação de culturas para manter o solo fértil.",
-        details: [
-          "Semear beterraba e cenoura em ciclos curtos.",
-          "Revisar sistemas de irrigação e drenagem.",
-          "Reforçar adubação e rotação de culturas no Centro."
-        ]
-      },
-      "outubro": {
-        description: "Preparação para o inverno: ajuste na irrigação e manejo do solo para semeadura de hortaliças resistentes ao frio.",
-        details: [
-          "Semear couve, nabo e hortaliças tolerantes ao frio.",
-          "Realizar poda e limpeza das áreas cultivadas.",
-          "Planejar a rotação de culturas para conservar a fertilidade."
-        ]
-      },
-      "novembro": {
-        description: "Período de transição para o inverno: proteção das culturas remanescentes e intensificação da adubação orgânica para recuperar o solo.",
-        details: [
-          "Uso de coberturas térmicas para culturas sensíveis.",
-          "Intensificar a adubação orgânica.",
-          "Preparar canteiros para o plantio invernal."
-        ]
-      },
-      "dezembro": {
-        description: "Mês de renovação: mesmo com o frio, há preparação para o inverno e planejamento para a safra do próximo ano, com ênfase na proteção das culturas.",
-        details: [
-          "Semear hortaliças de inverno em locais abrigados.",
-          "Manutenção dos equipamentos de irrigação.",
-          "Planejar a rotação e diversificação para o ano seguinte."
-        ]
-      }
-    };
-    
-    // Obter o nome do mês atual (em minúsculas)
-    const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-    const currentMonthName = meses[now.getMonth()];
-    
-    // Atualizar a seção agrícola
-    document.getElementById("monthTitle").innerText = currentMonthName.charAt(0).toUpperCase() + currentMonthName.slice(1);
-    const agriData = agricultureData[currentMonthName] || {
-      description: "Informação agrícola não definida para este mês.",
-      details: []
-    };
-    document.getElementById("agricultureDescription").innerText = agriData.description;
-    const agriDetailsContainer = document.getElementById("agricultureDetails");
-    agriDetailsContainer.innerHTML = ""; // Limpar conteúdo
-    agriData.details.forEach(detail => {
-      const p = document.createElement("p");
-      p.className = "detail";
-      p.innerText = detail;
-      agriDetailsContainer.appendChild(p);
-    });
-    
-    /* ===== Seções Dinâmicas (randomizadas a cada acesso) ===== */
-    
-    // Array de provérbios (dinâmicos)
-    const proverbs = [
-      "Quem semeia vento, colhe tempestade.",
-      "Água mole em pedra dura, tanto bate até que fura.",
-      "Mais vale um provérbio na boca do que um milhar na mão.",
-      "Semeia bem e colherás abundância.",
-      "O trabalho bem feito é a melhor semente do sucesso."
-    ];
-    const randomProverb = proverbs[Math.floor(Math.random() * proverbs.length)];
-    document.getElementById("dailyProverb").innerText = randomProverb;
-    
-    // Array de informações lunares
-    const lunarInfos = [
-      "Lua Nova: Momento de renovação e introspecção. Energia contida para novos começos.",
-      "Quarto Crescente: Fase de crescimento e expansão. Aproveite para iniciar novos projetos.",
-      "Lua Cheia: Energia plena e intensificada. Excelente para colheitas e celebrações.",
-      "Quarto Minguante: Período de reflexão e limpeza. Hora de liberar o que já não serve."
-    ];
-    const randomLunar = lunarInfos[Math.floor(Math.random() * lunarInfos.length)];
-    document.getElementById("lunarInfo").innerText = randomLunar;
-    
-    // Array de curiosidades do dia
-    const curiosities = [
-      "Sabia que os azulejos portugueses contam histórias de épocas passadas? Muitos deles foram inspirados na arte islâmica.",
-      "Curiosidade: a bota portuguesa é reconhecida mundialmente, mas poucos sabem que ela surgiu como uma necessidade de proteção contra o clima.",
-      "Descubra: o fado é uma expressão musical que nasceu da mistura de culturas e sentimentos, refletindo a alma portuguesa.",
-      "Você sabia? A calçada portuguesa é uma arte de rua que transforma simples pedras em verdadeiras obras de arte urbanas.",
-      "Fato interessante: o pastel de nata, símbolo da doçaria portuguesa, tem uma receita secreta que remonta ao século XIX."
-    ];
-    const randomCuriosity = curiosities[Math.floor(Math.random() * curiosities.length)];
-    document.getElementById("dailyCuriosity").innerText = randomCuriosity;
-    
-    // Array de fatos históricos do dia
-    const historicalFacts = [
-      "Em 1755, Lisboa foi abalada por um dos maiores terremotos da história, mudando para sempre o destino da cidade.",
-      "Em 1910, a República foi proclamada em Portugal, marcando uma nova era política.",
-      "Durante a Era dos Descobrimentos, navegadores portugueses abriram rotas que transformaram o comércio mundial.",
-      "No século XVI, a riqueza de Portugal estava intrinsecamente ligada ao comércio de especiarias oriundas do Oriente.",
-      "Em 1974, a Revolução dos Cravos pôs fim a décadas de ditadura em Portugal, celebrada como um marco de liberdade."
-    ];
-    const randomHistorical = historicalFacts[Math.floor(Math.random() * historicalFacts.length)];
-    document.getElementById("historicalFact").innerText = randomHistorical;
-    
-  </script>
-</body>
-</html>
+        description: "Transição para o outono: tempera

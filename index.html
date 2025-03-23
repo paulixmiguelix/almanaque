@@ -1,198 +1,315 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <title>Almanaque Agrícola – Borda d'Água</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Almanaque Agrícola Borda d'Água – Dicas, provérbios, informações agrícolas, lunares, curiosidades e fatos históricos atualizados dinamicamente.">
-  <style>
-    /* Estilos Gerais */
-    body {
-      font-family: "Georgia", serif;
-      background-color: #fdf6e3;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    header, footer {
-      text-align: center;
-      padding: 20px 0;
-      background-color: #eee;
-      border-bottom: 1px solid #ccc;
-    }
-    header h1 {
-      font-size: 2.8em;
-      margin-bottom: 5px;
-    }
-    .date {
-      font-size: 1.2em;
-      color: #555;
-    }
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 15px;
-    }
-    .section {
-      margin-bottom: 40px;
-      padding-bottom: 20px;
-      border-bottom: 1px dashed #ccc;
-    }
-    .section h2 {
-      font-size: 1.8em;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-    .proverb, .dynamic-info {
-      font-style: italic;
-      font-size: 1.2em;
-      margin-bottom: 15px;
-      color: #8e44ad;
-    }
-    .description, .detail {
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      text-align: justify;
-    }
-    .detail {
-      margin-left: 20px;
-    }
-    footer {
-      border-top: 1px solid #ccc;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Almanaque Agrícola – Borda d'Água</h1>
-    <div class="date" id="currentDate"></div>
-  </header>
-  
-  <main>
-    <!-- Seção Agricultura (Informação fixa por mês) -->
-    <div class="section" id="agricultureSection">
-      <h2>Agricultura em <span id="monthTitle"></span></h2>
-      <div class="description" id="agricultureDescription"></div>
-      <div id="agricultureDetails"></div>
-    </div>
-    
-    <!-- Seção Provérbio do Dia (Dinâmico) -->
-    <div class="section" id="proverbSection">
-      <h2>Provérbio do Dia</h2>
-      <div class="dynamic-info" id="dailyProverb"></div>
-    </div>
-    
-    <!-- Seção Informações Lunares (Dinâmico) -->
-    <div class="section" id="lunarSection">
-      <h2>Informações Lunares</h2>
-      <div class="dynamic-info" id="lunarInfo"></div>
-    </div>
-    
-    <!-- Seção Curiosidade do Dia (Dinâmico) -->
-    <div class="section" id="curiositySection">
-      <h2>Curiosidade do Dia</h2>
-      <div class="dynamic-info" id="dailyCuriosity"></div>
-    </div>
-    
-    <!-- Seção Fato Histórico do Dia (Dinâmico, com verificação da data) -->
-    <div class="section" id="historicalSection">
-      <h2>Fato Histórico do Dia</h2>
-      <div class="dynamic-info" id="historicalFact"></div>
-    </div>
-  </main>
-  
-  <footer>
-    <p>&copy; <span id="currentYear"></span> Almanaque Agrícola – Borda d'Água. Todos os direitos reservados.</p>
-  </footer>
-  
-  <script>
-    // Função para formatar a data completa em português
-    function formatFullDate(date) {
-      const diasSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-      const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-      const diaSemana = diasSemana[date.getDay()];
-      const dia = date.getDate();
-      const mes = meses[date.getMonth()];
-      const ano = date.getFullYear();
-      return `${diaSemana}, ${dia} de ${mes} de ${ano}`;
-    }
-    
-    // Atualiza data atual e ano
-    const now = new Date();
-    document.getElementById("currentDate").innerText = formatFullDate(now);
-    document.getElementById("currentYear").innerText = now.getFullYear();
-    
-    /* ===== Informação Agrícola (Fixa por Mês) ===== */
-    const agricultureData = {
-      "janeiro": {
-        description: "Preparação das culturas de Inverno com ênfase na plantação precoce: a lavoura é trabalhada para preparar o solo para culturas invernais e a transição para a primavera.",
-        details: [
-          "Semear fava, ervilha, alface e rabanete.",
-          "No Norte e no Centro: semear couve-galega, nabo, nabiça, rabanete, salsa e tomate.",
-          "No Sul: semear cenoura, couves, ervilha, feijão, nabiça e tomate.",
-          "Em estufa ou cama quente: plantar pepino, melão, pimento; semear canteiros de cenoura, alho, cebola, alface, ervilha, alho-francês e salsa.",
-          "Na horta: semear, em canteiros ou alforges abrigados contra geadas, alface romana, couve-repolho e rabanete."
-        ]
-      },
-      "fevereiro": {
-        description: "Mês de transição: preparo do solo e manutenção da umidade para futuras plantações. Atenção especial às sementes que começam a germinar.",
-        details: [
-          "Regar frequentemente e controlar ervas daninhas.",
-          "Cuidar das hortaliças emergentes, como cenoura e beterraba.",
-          "Iniciar preparo de estufas para sementes sensíveis no Sul."
-        ]
-      },
-      "março": {
-        description: "Início da primavera: Com o início da primavera, as temperaturas começam a subir de forma gradual, proporcionando um clima ameno e propício para a aceleração do plantio. Este período é fundamental para impulsionar a germinação e o desenvolvimento inicial das culturas, especialmente hortaliças de folha e leguminosas. Abaixo, seguem indicações detalhadas e fidedignas para o manejo agrícola neste mês:",
-        details: [
-          "Regar frequentemente e controlar ervas daninhas.",
-          "Cuidar das hortaliças emergentes, como cenoura e beterraba.",
-          "Iniciar preparo de estufas para sementes sensíveis no Sul."
-        ]
-      },
-      "abril": {
-        description: "Avanço da primavera: diversificação das culturas e intensificação da irrigação nas áreas recém-semeadas, preparando o terreno para o verão.",
-        details: [
-          "Iniciar plantio de hortaliças de verão em áreas protegidas.",
-          "Poda e adubação de árvores frutíferas.",
-          "Implementar a rotação de culturas para manter a fertilidade do solo."
-        ]
-      },
-      "maio": {
-        description: "Consolidação das plantações e preparo para os cultivos de verão: manutenção da umidade e fortalecimento das plantas.",
-        details: [
-          "Reforçar a irrigação nas áreas mais secas.",
-          "Semear culturas de rápido crescimento, como alface e rúcula.",
-          "Planejar hortas de verão com diversidade no Norte."
-        ]
-      },
-      "junho": {
-        description: "Chegada do verão: cuidados redobrados com a irrigação e manejo das plantas sob forte incidência solar.",
-        details: [
-          "Utilizar sistemas de irrigação eficientes para evitar evaporação excessiva.",
-          "Proteger culturas sensíveis com sombras móveis.",
-          "Planejar a colheita antecipada de produtos que amadurecem rapidamente."
-        ]
-      },
-      "julho": {
-        description: "Auge do verão: manutenção da cobertura do solo para conservar água e controle rigoroso de pragas e doenças.",
-        details: [
-          "Adotar técnicas de mulching para reduzir a evaporação.",
-          "Ajustar a irrigação para evitar estresse hídrico.",
-          "Utilizar métodos naturais de controle de pragas."
-        ]
-      },
-      "agosto": {
-        description: "No calor contínuo, proteger as culturas contra a desidratação e iniciar a preparação para o outono.",
-        details: [
-          "Ajustar a irrigação conforme a necessidade específica de cada cultura.",
-          "Iniciar a colheita de hortaliças e frutas maduras.",
-          "Preparar o solo com matéria orgânica para a próxima estação."
-        ]
-      },
-      "setembro": {
-        description: "Transição para o outono: tempera
+ <meta charset="UTF-8">
+   <title>Almanaque Agrícola – Borda d'Água</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="Almanaque Agrícola Borda d'Água: Dicas, provérbios e informações agrícolas atualizadas diariamente, para orientar o agricultor e o curioso.">
+   <meta name="description" content="Almanaque Agrícola Borda d'Água – Dicas, provérbios e informações agrícolas, lunares, curiosidades e fatos históricos, atualizados dinamicamente.">
+   <style>
+     /* Estilos Gerais */
+     body {
+ @@ -44,7 +44,7 @@
+       color: #2c3e50;
+       margin-bottom: 10px;
+     }
+     .proverb {
+     .proverb, .dynamic-info {
+       font-style: italic;
+       font-size: 1.2em;
+       margin-bottom: 15px;
+ @@ -73,11 +73,35 @@ <h1>Almanaque Agrícola – Borda d'Água</h1>
+   </header>
+ 
+   <main>
+     <div class="section" id="monthSection">
+       <h2 id="monthTitle">Agricultura em [Mês]</h2>
+       <div class="proverb" id="monthProverb"></div>
+       <div class="description" id="monthDescription"></div>
+       <div id="monthDetails"></div>
+     <!-- Seção Agricultura (Informação fixa por mês) -->
+     <div class="section" id="agricultureSection">
+       <h2>Agricultura em <span id="monthTitle"></span></h2>
+       <div class="description" id="agricultureDescription"></div>
+       <div id="agricultureDetails"></div>
+     </div>
+     
+     <!-- Seção Provérbio do Dia (Dinâmico) -->
+     <div class="section" id="proverbSection">
+       <h2>Provérbio do Dia</h2>
+       <div class="dynamic-info" id="dailyProverb"></div>
+     </div>
+     
+     <!-- Seção Informações Lunares (Dinâmico) -->
+     <div class="section" id="lunarSection">
+       <h2>Informações Lunares</h2>
+       <div class="dynamic-info" id="lunarInfo"></div>
+     </div>
+     
+     <!-- Seção Curiosidade do Dia (Dinâmico) -->
+     <div class="section" id="curiositySection">
+       <h2>Curiosidade do Dia</h2>
+       <div class="dynamic-info" id="dailyCuriosity"></div>
+     </div>
+     
+     <!-- Seção Fato Histórico do Dia (Dinâmico) -->
+     <div class="section" id="historicalSection">
+       <h2>Fato Histórico do Dia</h2>
+       <div class="dynamic-info" id="historicalFact"></div>
+     </div>
+   </main>
+ 
+ @@ -97,149 +121,178 @@ <h2 id="monthTitle">Agricultura em [Mês]</h2>
+       return `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+     }
+ 
+     // Atualiza a data atual e o ano
+     // Atualiza data atual e ano
+     const now = new Date();
+     document.getElementById("currentDate").innerText = formatFullDate(now);
+     document.getElementById("currentYear").innerText = now.getFullYear();
+ 
+     // Dados do almanaque agrícola para cada mês
+     const almanaqueData = {
+     /* ===== Informação Agrícola (Fixa por Mês) ===== */
+     const agricultureData = {
+       "janeiro": {
+         proverb: "Bons dias em janeiro enganam o homem em fevereiro",
+         description: "Lavoura das terras e preparação das culturas de Inverno, como a da batata, iniciando-se onde for possível, a plantação precoce. Semear fava, ervilha, alface e rabanete.",
+         description: "Preparação das culturas de Inverno com ênfase na plantação precoce: a lavoura é trabalhada com o intuito de preparar a terra para o plantio de culturas invernais e de transição para a primavera.",
+         details: [
+           "No Norte e no Centro – semear couve-galega, nabo, nabiça, rabanete, salsa e tomate.",
+           "No Sul – semear cenoura, couves, ervilha, feijão, nabiça e tomate.",
+           "Em estufa ou cama quente – plantar pepino, melão, pimento. Semear canteiros de cenoura, alho, cebola, alface, ervilha, alho-francês e salsa.",
+           "Na Horta – semear (em canteiros ou alforges bem abrigados e defendidos das geadas) alface romana, couve repolho, e rabanete."
+           "Semear fava, ervilha, alface e rabanete em áreas disponíveis.",
+           "No Norte e no Centro: semear couve-galega, nabo, nabiça, rabanete, salsa e tomate.",
+           "No Sul: semear cenoura, couves, ervilha, feijão, nabiça e tomate.",
+           "Em estufa ou cama quente: plantar pepino, melão e pimento; semear canteiros de cenoura, alho, cebola, alface, ervilha, alho-francês e salsa.",
+           "Na horta: semear em canteiros ou alforges bem abrigados (defendidos das geadas) alface romana, couve-repolho e rabanete."
+         ]
+       },
+       "fevereiro": {
+         proverb: "Em fevereiro, tempo de espera e de regar com cautela.",
+         description: "Mês de transição: preparar o solo para a chegada da primavera. É tempo de cuidar das raízes e manter a umidade para as futuras plantações.",
+         description: "Mês de transição: preparo do solo e manutenção da umidade para futuras plantações, com atenção especial às sementes que começam a germinar.",
+         details: [
+           "Rega frequente e controle das ervas daninhas são fundamentais.",
+           "Atenção especial às hortaliças que já iniciam a germinação, como a cenoura e a beterraba.",
+           "No Sul, aproveite para iniciar o preparo de estufas com sementes mais sensíveis."
+           "Rega frequente e controle das ervas daninhas.",
+           "Cuidado com culturas que já iniciam a germinação, como cenoura e beterraba.",
+           "No Sul, iniciar o preparo de estufas para sementes sensíveis."
+         ]
+       },
+       "março": {
+         proverb: "Março ventoso e abril chuvoso fazem a terra frutificar.",
+         description: "Início da primavera em muitas regiões: é hora de acelerar o processo de plantio e aproveitar o clima mais ameno.",
+         description: "Início da primavera: aceleração do plantio e aproveitamento do clima ameno. Preparação intensiva dos canteiros para hortaliças de folha e leguminosas.",
+         details: [
+           "Semear ervilhas e grãos de bico.",
+           "Aumentar a preparação de canteiros para hortaliças de folha.",
+           "Verificar a saúde do solo e a necessidade de adubação orgânica."
+           "Preparar canteiros com adubação orgânica.",
+           "Monitorar o solo para correção de pH."
+         ]
+       },
+       "abril": {
+         proverb: "Abril, mês de promessas e de florescer a esperança.",
+         description: "Com o avanço da primavera, é tempo de diversificar as culturas e intensificar a irrigação nas áreas recém-semeadas.",
+         description: "Com o avanço da primavera, diversificar as culturas e intensificar a irrigação nas áreas recém-semeadas, preparando o terreno para o verão.",
+         details: [
+           "Iniciar o plantio de hortaliças de verão em áreas protegidas.",
+           "Preparar a poda e adubação de árvores frutíferas.",
+           "Incentivar a rotação de culturas para manter o solo fértil."
+           "Iniciar plantio de hortaliças de verão em áreas protegidas.",
+           "Poda e adubação de árvores frutíferas.",
+           "Rotação de culturas para manter a fertilidade do solo."
+         ]
+       },
+       "maio": {
+         proverb: "Maio é calor, mas a terra renova o vigor.",
+         description: "É tempo de consolidar as plantações iniciadas e iniciar o preparo para os cultivos de verão.",
+         description: "Consolidação das plantações iniciadas e preparo para os cultivos de verão, com foco na manutenção da umidade e fortalecimento das plantas.",
+         details: [
+           "Reforçar a irrigação nas áreas mais secas.",
+           "Reforço na irrigação em áreas secas.",
+           "Semear culturas de rápido crescimento, como alface e rúcula.",
+           "No Norte, começar a planejar as hortas de verão com diversidade."
+           "Planejamento das hortas de verão no Norte."
+         ]
+       },
+       "junho": {
+         proverb: "Junho ardente, mas a terra sorri em abundância.",
+         description: "A chegada do verão exige cuidados redobrados com a irrigação e o manejo das plantas sob forte incidência solar.",
+         description: "Chegada do verão: cuidados redobrados com irrigação e manejo sob forte incidência solar, garantindo o desenvolvimento adequado das culturas.",
+         details: [
+           "Utilizar sistemas de irrigação eficientes para evitar a evaporação excessiva.",
+           "Proteger as culturas sensíveis com sombras ou estufas móveis.",
+           "Planejar a colheita de produtos que amadurecem mais cedo."
+           "Uso de sistemas eficientes de irrigação.",
+           "Proteção das culturas sensíveis com sombras móveis.",
+           "Planejamento da colheita de produtos que amadurecem cedo."
+         ]
+       },
+       "julho": {
+         proverb: "Julho é de sol e de trabalho árduo na lavoura.",
+         description: "O auge do verão traz desafios quanto à umidade e à temperatura. É essencial manter a cobertura do solo para conservar a água.",
+         description: "Auge do verão: manutenção da cobertura do solo para conservar água e controle rigoroso das pragas e doenças.",
+         details: [
+           "Adotar técnicas de mulching para reduzir a evaporação.",
+           "Verificar e corrigir a irrigação para evitar estresse hídrico.",
+           "Controlar pragas e doenças com métodos naturais sempre que possível."
+           "Técnicas de mulching para reduzir evaporação.",
+           "Ajuste na irrigação para evitar estresse hídrico.",
+           "Controle biológico de pragas sempre que possível."
+         ]
+       },
+       "agosto": {
+         proverb: "Agosto sem pressa, mas colhe-se a promessa da safra.",
+         description: "Ainda no calor, é o momento de garantir que as culturas estejam protegidas contra a desidratação e de iniciar a preparação para o outono.",
+         description: "Continuação do calor, com foco na proteção contra a desidratação e preparação para o outono, iniciando a colheita de algumas hortaliças.",
+         details: [
+           "Ajustar a irrigação conforme as necessidades específicas de cada cultura.",
+           "Iniciar a colheita de algumas hortaliças e frutas.",
+           "Preparar o solo para a próxima estação, incorporando matéria orgânica."
+           "Ajustar irrigação conforme necessidade.",
+           "Iniciar a colheita de hortaliças e frutas maduras.",
+           "Preparar o solo com matéria orgânica para a próxima estação."
+         ]
+       },
+       "setembro": {
+         proverb: "Setembro traz frescor e reaviva a esperança do cultivo.",
+         description: "O outono começa a despontar, trazendo temperaturas mais amenas. É hora de fazer a transição entre as culturas de verão e as de inverno.",
+         description: "Transição para o outono: temperaturas mais amenas favorecem a semeadura de culturas de ciclo curto e a rotação de culturas para manter o solo fértil.",
+         details: [
+           "Semear culturas de ciclo curto, como beterraba e cenoura.",
+           "Revisar os sistemas de irrigação e drenagem.",
+           "No Centro, reforçar a adubação e a rotação de culturas."
+           "Semear beterraba e cenoura em ciclos curtos.",
+           "Revisar sistemas de irrigação e drenagem.",
+           "Reforçar adubação e rotação de culturas no Centro."
+         ]
+       },
+       "outubro": {
+         proverb: "Outubro é terra de renovação, prepara-se a nova estação.",
+         description: "Com a queda das temperaturas, os agricultores iniciam o preparo para as culturas de inverno, ajustando a irrigação e o manejo do solo.",
+         description: "Preparação para o inverno: ajuste na irrigação e manejo do solo para semeadura de hortaliças resistentes ao frio.",
+         details: [
+           "Semear hortaliças resistentes ao frio, como couve e nabo.",
+           "Realizar a poda e a limpeza das áreas cultivadas.",
+           "Planejar a rotação de culturas para manter o solo fértil."
+           "Semear couve, nabo e hortaliças tolerantes ao frio.",
+           "Realizar poda e limpeza das áreas cultivadas.",
+           "Planejar a rotação de culturas para conservar a fertilidade."
+         ]
+       },
+       "novembro": {
+         proverb: "Novembro convida a refletir e a semear com precaução.",
+         description: "Os dias mais curtos e frios exigem cuidados especiais para as culturas que ainda resistem ao frio. É um período de transição para o inverno.",
+         description: "Período de transição para o inverno: proteção das culturas remanescentes e intensificação da adubação orgânica para recuperar o solo.",
+         details: [
+           "Proteger as culturas sensíveis com coberturas térmicas.",
+           "Intensificar a adubação orgânica para recuperar o solo.",
+           "Preparar canteiros para o plantio de culturas invernais."
+           "Uso de coberturas térmicas para culturas sensíveis.",
+           "Intensificar a adubação orgânica.",
+           "Preparar canteiros para o plantio invernal."
+         ]
+       },
+       "dezembro": {
+         proverb: "Dezembro é tempo de esperança e de novos começos na terra.",
+         description: "Mesmo com o frio, é um mês de renovação. A preparação para o inverno envolve a proteção das culturas e o planejamento para a nova safra que virá no ano seguinte.",
+         description: "Mês de renovação: mesmo com o frio, há preparação para o inverno e planejamento para a safra do próximo ano, com ênfase na proteção das culturas.",
+         details: [
+           "Semear hortaliças de inverno em locais abrigados.",
+           "Realizar a manutenção de equipamentos de irrigação e proteção.",
+           "Planejar a rotação e a diversificação de culturas para o próximo ano."
+           "Manutenção dos equipamentos de irrigação.",
+           "Planejar a rotação e diversificação para o ano seguinte."
+         ]
+       }
+     };
+ 
+     
+     // Obter o nome do mês atual (em minúsculas)
+     const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+     const currentMonthName = meses[now.getMonth()];
+ 
+     // Atualizar o título da seção com o nome do mês
+     document.getElementById("monthTitle").innerText = `Agricultura em ${currentMonthName.charAt(0).toUpperCase() + currentMonthName.slice(1)}`;
+ 
+     // Carregar os dados do mês atual
+     const data = almanaqueData[currentMonthName] || {
+       proverb: "Sem dados específicos para este mês.",
+       description: "Informação agrícola ainda não foi definida para este período.",
+     
+     // Atualizar a seção agrícola
+     document.getElementById("monthTitle").innerText = currentMonthName.charAt(0).toUpperCase() + currentMonthName.slice(1);
+     const agriData = agricultureData[currentMonthName] || {
+       description: "Informação agrícola não definida para este mês.",
+       details: []
+     };
+ 
+     document.getElementById("monthProverb").innerText = data.proverb;
+     document.getElementById("monthDescription").innerText = data.description;
+     
+     // Preencher os detalhes (lista de recomendações)
+     const detailsContainer = document.getElementById("monthDetails");
+     data.details.forEach(detail => {
+     document.getElementById("agricultureDescription").innerText = agriData.description;
+     const agriDetailsContainer = document.getElementById("agricultureDetails");
+     agriDetailsContainer.innerHTML = ""; // Limpar conteúdo
+     agriData.details.forEach(detail => {
+       const p = document.createElement("p");
+       p.className = "detail";
+       p.innerText = detail;
+       detailsContainer.appendChild(p);
+       agriDetailsContainer.appendChild(p);
+     });
+     
+     /* ===== Seções Dinâmicas (randomizadas a cada acesso) ===== */
+     
+     // Array de provérbios (dinâmicos)
+     const proverbs = [
+       "Quem semeia vento, colhe tempestade.",
+       "Água mole em pedra dura, tanto bate até que fura.",
+       "Mais vale um provérbio na boca do que um milhar na mão.",
+       "Semeia bem e colherás abundância.",
+       "O trabalho bem feito é a melhor semente do sucesso."
+     ];
+     const randomProverb = proverbs[Math.floor(Math.random() * proverbs.length)];
+     document.getElementById("dailyProverb").innerText = randomProverb;
+     
+     // Array de informações lunares
+     const lunarInfos = [
+       "Lua Nova: Momento de renovação e introspecção. Energia contida para novos começos.",
+       "Quarto Crescente: Fase de crescimento e expansão. Aproveite para iniciar novos projetos.",
+       "Lua Cheia: Energia plena e intensificada. Excelente para colheitas e celebrações.",
+       "Quarto Minguante: Período de reflexão e limpeza. Hora de liberar o que já não serve."
+     ];
+     const randomLunar = lunarInfos[Math.floor(Math.random() * lunarInfos.length)];
+     document.getElementById("lunarInfo").innerText = randomLunar;
+     
+     // Array de curiosidades do dia
+     const curiosities = [
+       "Sabia que os azulejos portugueses contam histórias de épocas passadas? Muitos deles foram inspirados na arte islâmica.",
+       "Curiosidade: a bota portuguesa é reconhecida mundialmente, mas poucos sabem que ela surgiu como uma necessidade de proteção contra o clima.",
+       "Descubra: o fado é uma expressão musical que nasceu da mistura de culturas e sentimentos, refletindo a alma portuguesa.",
+       "Você sabia? A calçada portuguesa é uma arte de rua que transforma simples pedras em verdadeiras obras de arte urbanas.",
+       "Fato interessante: o pastel de nata, símbolo da doçaria portuguesa, tem uma receita secreta que remonta ao século XIX."
+     ];
+     const randomCuriosity = curiosities[Math.floor(Math.random() * curiosities.length)];
+     document.getElementById("dailyCuriosity").innerText = randomCuriosity;
+     
+     // Array de fatos históricos do dia
+     const historicalFacts = [
+       "Em 1755, Lisboa foi abalada por um dos maiores terremotos da história, mudando para sempre o destino da cidade.",
+       "Em 1910, a República foi proclamada em Portugal, marcando uma nova era política.",
+       "Durante a Era dos Descobrimentos, navegadores portugueses abriram rotas que transformaram o comércio mundial.",
+       "No século XVI, a riqueza de Portugal estava intrinsecamente ligada ao comércio de especiarias oriundas do Oriente.",
+       "Em 1974, a Revolução dos Cravos pôs fim a décadas de ditadura em Portugal, celebrada como um marco de liberdade."
+     ];
+     const randomHistorical = historicalFacts[Math.floor(Math.random() * historicalFacts.length)];
+     document.getElementById("historicalFact").innerText = randomHistorical;
+     
+   </script>
+ </body>
+ </html>
